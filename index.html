@@ -432,6 +432,25 @@ body.open #view,body.open nav{pointer-events:none}
 .kv span{white-space:nowrap}
 .brand b{font-size:16px!important;letter-spacing:.3px!important}.hb{gap:5px}.icon-btn{width:36px;height:36px}
 @media(max-width:370px){.brand b{font-size:14.5px!important}.icon-btn{width:33px;height:33px}}
+/* ===== v1.1 · practice (MCQs + YouTube) · editable tiles ===== */
+.prg{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.prb{border-radius:18px;padding:11px 11px 10px;background:linear-gradient(155deg,color-mix(in srgb,var(--c) 18%,var(--s2)),var(--s1));border:1px solid color-mix(in srgb,var(--c) 40%,transparent);min-width:0;display:flex;flex-direction:column}
+.prb .pe{font-size:20px}.prb .pv{font-family:var(--disp);font-size:26px;font-weight:800;line-height:1.1;margin-top:2px}.prb .pl{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
+.pby{display:flex;flex-wrap:wrap;gap:4px;margin:7px 0 9px;font-size:11px;flex:1;align-content:flex-start}.pby span{padding:2px 7px;border-radius:99px;background:color-mix(in srgb,var(--c,#888) 20%,var(--s2));white-space:nowrap}.pby .faint{background:none;padding:0}
+.prp{padding:9px;border-radius:12px;font-weight:800;font-size:13px;color:#fff;background:color-mix(in srgb,var(--c) 45%,var(--s2));border:1px solid color-mix(in srgb,var(--c) 60%,transparent)}
+.mq{display:grid;grid-template-columns:repeat(4,1fr) 84px;gap:6px}
+.mq button{padding:10px 2px;border-radius:12px;background:var(--s2);border:1px solid var(--line2);font-weight:800;font-size:14px}
+.mq button.on{background:linear-gradient(135deg,#4ff0d2,#1f8fd6);color:#04140c;border-color:transparent}
+.mq input{text-align:center;padding:8px 4px!important}
+.st.jig .tile:not(.add){animation:jig 1.4s ease-in-out infinite;outline:2px dashed rgba(255,255,255,.75);outline-offset:-4px}
+@keyframes jig{50%{outline-color:rgba(255,255,255,.25)}}
+.tdel{position:absolute!important;top:5px;right:5px;z-index:3!important;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff!important;background:#e8364a;box-shadow:0 0 0 2px rgba(255,255,255,.85),0 4px 10px rgba(0,0,0,.4)}
+.sws.sm{width:100%;gap:6px;margin-bottom:6px}.sws.sm button{width:24px;height:24px;border-width:2px}
+.pqr{display:grid;grid-template-columns:86px minmax(0,1fr) 62px;gap:8px;align-items:center;padding:6px 0;font-size:12.5px;border-top:1px solid var(--line)}
+.pqr .tr2{display:flex;flex-direction:column;gap:3px}.pqr .tr2 b{display:block;height:7px;border-radius:99px;transform-origin:left;animation:growx .8s both}
+.pqr .v{text-align:right;font-weight:800;font-size:11.5px;line-height:1.35}.pqr .v small{font-weight:500;color:var(--faint)}
+.brk{flex-wrap:wrap}
+.lgm{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.lgm .lt{border-radius:16px}.lgm .ltm{padding:8px 8px 9px}.lgm .ic{font-size:19px}.lgm .n{font-size:11.5px;margin-top:3px}.lgm .v{font-size:17px}
 </style>
 <style id="lookCss"></style><style id="btnCss"></style>
 </head>
@@ -465,20 +484,22 @@ const DEF_SUBS = [['abm','ABM','📘','#7c5cff','Advanced Bank Management'],['bf
   .map(([id, n, e, c, full]) => ({id, n, e, c, full, topics:[]}));
 const ENERGY = [['drained','Drained','🪫','#ff5d73',1],['low','Low','😮‍💨','#ffb020',2],['okay','Okay','🙂','#2ec5ff',3],['high','High','⚡','#2ee59d',4],['peak','Peak','🚀','#ff4fa3',5]];
 const DEF_FEELS = [['focused','Focused','🎯','#2ec5ff'],['confident','Confident','💪','#2ee59d'],['motivated','Motivated','🤩','#ffc54d'],['calm','Calm','😌','#4ff0d2'],['anxious','Anxious','😰','#ffb020'],['sleepy','Sleepy','😴','#ff9a3c'],['frustrated','Frustrated','😤','#ff5d73'],['overwhelmed','Overwhelmed','🤯','#a58cff'],['bored','Bored','🥱','#8a9bb0']].map(([id, n, e, c]) => ({id, n, e, c}));
-const DEF_BTNS = [['pomo','Pomodoro','🍅','#ff9a3c',25,'study'],['deep','Deep focus','🧠','#38c8ff',50,'study'],['rev','Revision','🔁','#a58cff',30,'revision'],['mock','Mock test','📝','#4ff0d2',120,'mock']].map(([id, n, e, c, m, k]) => ({id, n, e, c, m, k}));
-const KINDS = [['study','📖 Study'],['revision','🔁 Revision'],['practice','✍️ Practice'],['mock','📝 Mock test']];
+const DEF_BTNS = [['pomo','Pomodoro','🍅','#ff9a3c',25,'study'],['deep','Deep focus','🧠','#38c8ff',50,'study'],['rev','Revision','🔁','#a58cff',30,'revision'],['mock','Mock test','📝','#4ff0d2',120,'mock'],['yt','YouTube','▶️','#ff3b5c',20,'video']].map(([id, n, e, c, m, k]) => ({id, n, e, c, m, k}));
+const KINDS = [['study','📖 Study'],['revision','🔁 Revision'],['practice','✍️ Practice'],['video','▶️ YouTube'],['mock','📝 Mock test']];
 const STRAT_CATS = [['daily','Daily rules','☀️'],['revision','Revision cycle','🔁'],['lowenergy','Low-energy plan','🪫'],['examday','Exam day','🎯'],['other','Notes','📝']];
 const PAL = ['#7c5cff','#2ec5ff','#ff4fa3','#ffb020','#1fd68a','#9b3fd6','#f0428f','#ff6a13','#12a874','#e8364a','#f59f00','#3d63e0','#0aa6d6','#8a3ffc'];
 const fresh = () => ({exams:[{id:'x1', n:'CAIIB · Elective', date:'2026-12-27'}], subjects:DEF_SUBS.map(s => ({...s, topics:[]})), feels:DEF_FEELS.map(f => ({...f})), btns:DEF_BTNS.map(b => ({...b})),
-  sessions:[], plan:[], strategy:[{id:'g1', cat:'daily', text:'Study the hardest paper first, while energy is high.'},{id:'g2', cat:'revision', text:'Revise each topic on day 1, day 3, day 7 and day 21 after first study.'},{id:'g3', cat:'lowenergy', text:'Low energy? Do a 25-minute revision or MCQs instead of new topics.'},{id:'g4', cat:'examday', text:'Attempt the questions you are sure of first; leave long numericals for the second pass.'}],
+  sessions:[], mcqs:[], v11:1, plan:[], strategy:[{id:'g1', cat:'daily', text:'Study the hardest paper first, while energy is high.'},{id:'g2', cat:'revision', text:'Revise each topic on day 1, day 3, day 7 and day 21 after first study.'},{id:'g3', cat:'lowenergy', text:'Low energy? Do a 25-minute revision or MCQs instead of new topics.'},{id:'g4', cat:'examday', text:'Attempt the questions you are sure of first; leave long numericals for the second pass.'}],
   goal:{min:180, max:240, start:'05:00', end:'22:00'}, timer:null, settings:{sound:true}, wish:[]});
 
 /* ===================== state ===================== */
 let S;
-try { const d = JSON.parse(localStorage.getItem(KEY) || 'null'); S = d && Array.isArray(d.sessions) ? {...fresh(), ...d, goal:{...fresh().goal, ...(d.goal || {})}, settings:{...fresh().settings, ...(d.settings || {})}} : fresh(); } catch(e) { S = fresh(); }
+try { const d = JSON.parse(localStorage.getItem(KEY) || 'null'); S = d && Array.isArray(d.sessions) ? {...fresh(), ...d, v11:d.v11 || 0, goal:{...fresh().goal, ...(d.goal || {})}, settings:{...fresh().settings, ...(d.settings || {})}} : fresh(); } catch(e) { S = fresh(); }
 let warned = false;
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) { if (!warned) { warned = true; toast('Could not save on this device'); } } };
-const UI = {tab:'today', sub:null, pseg:'plan', range:30, scat:'all'};
+if (!Array.isArray(S.mcqs)) S.mcqs = [];
+if (!S.v11) { if (!S.btns.some(b => b.k === 'video')) S.btns.push({id:'yt', n:'YouTube', e:'▶️', c:'#ff3b5c', m:20, k:'video'}); S.v11 = 1; setTimeout(save, 0); }
+const UI = {tab:'today', tedit:false, sub:null, pseg:'plan', range:30, scat:'all'};
 
 /* ===================== helpers ===================== */
 const $ = id => document.getElementById(id);
@@ -504,6 +525,9 @@ const feel = id => S.feels.find(f => f.id === id) || {id, n:id, e:'•', c:'#646
 const en = id => ENERGY.find(e => e[0] === id) || ENERGY[2];
 const dayOf = t => dk(new Date(t));
 const minsOn = k => S.sessions.filter(s => dayOf(s.start) === k).reduce((a, s) => a + s.mins, 0) + (S.timer && dayOf(S.timer.start) === k ? timerMs() / MIN : 0);
+const mcqOn = (k, id) => S.sessions.filter(s => (!k || dayOf(s.start) === k) && (!id || s.sub === id)).reduce((a, s) => a + (s.mcq || 0), 0) + S.mcqs.filter(x => (!k || dayOf(x.t) === k) && (!id || x.sub === id)).reduce((a, x) => a + x.n, 0);
+const mcqFrom = (from, id) => S.sessions.filter(s => dayOf(s.start) >= from && (!id || s.sub === id)).reduce((a, s) => a + (s.mcq || 0), 0) + S.mcqs.filter(x => dayOf(x.t) >= from && (!id || x.sub === id)).reduce((a, x) => a + x.n, 0);
+const vidFrom = (from, id, to = '9999') => S.sessions.filter(s => s.kind === 'video' && dayOf(s.start) >= from && dayOf(s.start) <= to && (!id || s.sub === id)).reduce((a, s) => a + s.mins, 0);
 const sessOn = k => S.sessions.filter(s => dayOf(s.start) === k);
 const enScore = s => s.energy && s.energy.length ? avg(s.energy.map(e => en(e)[4])) : null;
 const syl = s => s.topics.length ? Math.round(s.topics.filter(t => t.done).length / s.topics.length * 100) : null;
@@ -561,15 +585,20 @@ function renderToday(){
       <div class="mbt"><button class="mgo" data-act="pstart" data-id="${nx.id}">▶ Start session</button><button data-act="plater" data-id="${nx.id}">⏰ Tomorrow</button><button data-act="pdone" data-id="${nx.id}">✓ Done</button></div></section>`; }
   else h += `<button class="miss empty2" data-act="padd"><div class="lbl">Nothing planned for today</div><div class="mt">＋ Plan a topic for today</div></button>`;
   h += `<div class="qa"><span>⚡</span><input id="qaIn" placeholder='e.g. "45m ABM statistics, tired but focused"' autocomplete="off" enterkeyhint="send"><button class="qmic" data-act="qmic" id="qMic" aria-label="Speak">🎤</button><button class="qgo" data-act="qadd" aria-label="Add">➤</button></div>`;
-  h += `<div class="lbl" style="margin:4px 4px 8px">Subjects</div><div class="st">${S.subjects.map((s, i) => { const p = syl(s), mm = subMins(s.id);
-    return `<button class="tile${lightOf(s.c) > .62 ? ' lite' : ''}" style="--c:${s.c};animation-delay:${i * 35}ms" data-act="subj" data-id="${s.id}"><div class="e">${s.e}</div><div class="n">${esc(s.n)}</div><div class="h">${dur(mm)}</div><div class="s">${p == null ? 'add topics' : p + '% syllabus'}</div><div class="pb"><i style="width:${p || 0}%"></i></div></button>`; }).join('')}
+  // practice today: MCQs + YouTube
+  const mq = mcqOn(k), vd = vidFrom(k, null, k), mqBy = S.subjects.map(s => [s, mcqOn(k, s.id)]).filter(x => x[1]), vdBy = S.subjects.map(s => [s, vidFrom(k, s.id, k)]).filter(x => x[1]);
+  h += `<section class="card prc"><div class="ch"><h3>Practice today</h3><button class="lnk" data-act="prlist">History ›</button></div>
+    <div class="prg"><div class="prb" style="--c:#4ff0d2"><div class="pe">📝</div><div class="pv num">${mq}</div><div class="pl">MCQs</div><div class="pby">${mqBy.map(([s, n]) => `<span style="--c:${s.c}">${s.e} ${esc(s.n)} ${n}</span>`).join('') || '<span class="faint">none yet</span>'}</div><button class="prp" data-act="mcqadd">＋ MCQs</button></div>
+      <div class="prb" style="--c:#ff3b5c"><div class="pe">▶️</div><div class="pv num">${dur(vd)}</div><div class="pl">YouTube</div><div class="pby">${vdBy.map(([s, n]) => `<span style="--c:${s.c}">${s.e} ${esc(s.n)} ${dur(n)}</span>`).join('') || '<span class="faint">none yet</span>'}</div><button class="prp" data-act="vidadd">＋ Video</button></div></div></section>`;
+  h += `<div class="row" style="margin:4px 4px 8px"><span class="lbl">Subjects</span><button class="lnk" data-act="tedit">${UI.tedit ? '✓ Done' : '✏️ Edit tiles'}</button></div>${UI.tedit ? '<div class="note" style="margin:-4px 4px 8px">Tap ✕ to delete a subject · tap a tile to edit its name, emoji and colour.</div>' : ''}<div class="st${UI.tedit ? ' jig' : ''}">${S.subjects.map((s, i) => { const p = syl(s), mm = subMins(s.id);
+    return `<button class="tile${lightOf(s.c) > .62 ? ' lite' : ''}" style="--c:${s.c};animation-delay:${i * 35}ms" data-act="${UI.tedit ? 'subedit' : 'subj'}" data-id="${s.id}">${UI.tedit ? `<span class="tdel" data-act="subx" data-id="${s.id}" role="button" aria-label="Delete ${esc(s.n)}">✕</span>` : ''}<div class="e">${s.e}</div><div class="n">${esc(s.n)}</div><div class="h">${dur(mm)}</div><div class="s">${p == null ? 'add topics' : p + '% syllabus'}</div><div class="pb"><i style="width:${p || 0}%"></i></div></button>`; }).join('')}
     <button class="tile add" data-act="subadd"><div class="e">＋</div><div class="n">Add</div><div class="s">subject</div></button></div>`;
   const recent = S.sessions.slice().sort((a, b) => b.start - a.start).slice(0, 5);
   h += `<section class="card" style="margin-top:12px"><div class="ch"><h3>Recent sessions</h3><span>tap to edit</span></div>${recent.map(sessRow).join('') || '<div class="empty" style="padding:12px"><span class="e">📚</span>Tap ▶ to start a timed session, or log one with the quick bar.</div>'}</section>`;
   return h;
 }
 function sessRow(s){ const su = sub(s.sub), ens = (s.energy || []).map(e => en(e)[2]).join(''), fs = (s.feels || []).slice(0, 3).map(f => feel(f).e).join('');
-  return `<button class="ses" style="--c:${su.c}" data-act="editsess" data-id="${s.id}"><span class="e">${su.e}</span><span style="min-width:0"><b>${esc(su.n)}${s.topic ? ' · ' + esc(s.topic) : ''}</b><div class="small faint">${short(dayOf(s.start))}, ${hm(s.start)} · ${KINDS.find(k => k[0] === s.kind)?.[1] || ''}${s.score != null ? ' · ' + s.score + '%' : ''}</div></span><span class="v">${dur(s.mins)}<small>${ens}${fs}${s.und ? ' ' + '★'.repeat(s.und) : ''}</small></span></button>`; }
+  return `<button class="ses" style="--c:${su.c}" data-act="editsess" data-id="${s.id}"><span class="e">${su.e}</span><span style="min-width:0"><b>${esc(su.n)}${s.topic ? ' · ' + esc(s.topic) : ''}</b><div class="small faint">${short(dayOf(s.start))}, ${hm(s.start)} · ${KINDS.find(k => k[0] === s.kind)?.[1] || ''}${s.score != null ? ' · ' + s.score + '%' : ''}${s.mcq ? ' · ' + s.mcq + ' MCQs' : ''}</div></span><span class="v">${dur(s.mins)}<small>${ens}${fs}${s.und ? ' ' + '★'.repeat(s.und) : ''}</small></span></button>`; }
 
 /* ---------- SUBJECT page ---------- */
 function renderSubject(){
@@ -578,7 +607,7 @@ function renderSubject(){
   const lastBy = {}; ss.forEach(x => { if (x.topic && !lastBy[x.topic.toLowerCase()]) lastBy[x.topic.toLowerCase()] = x.start; });
   let h = `<button class="back" data-act="back">‹ Today</button>
     <section class="card shero" style="--c:${s.c}"><div class="sav">${s.e}</div><div style="min-width:0"><div class="pname">${esc(s.n)}</div><div class="small muted">${esc(s.full || '')}</div></div><div class="sbig"><b>${dur(subMins(s.id))}</b><small>studied</small></div></section>
-    <div class="kpis" style="margin-bottom:12px"><div class="kpi" style="--c:${s.c}"><div class="k">Syllabus</div><div class="v">${p == null ? '—' : p + '%'}</div><div class="s">${s.topics.filter(t => t.done).length}/${s.topics.length} topics</div></div><div class="kpi" style="--c:#ffc54d"><div class="k">Understanding</div><div class="v">${und ? und.toFixed(1) + ' ★' : '—'}</div><div class="s">${ss.length} sessions</div></div></div>
+    <div class="kpis" style="margin-bottom:12px"><div class="kpi" style="--c:${s.c}"><div class="k">Syllabus</div><div class="v">${p == null ? '—' : p + '%'}</div><div class="s">${s.topics.filter(t => t.done).length}/${s.topics.length} topics</div></div><div class="kpi" style="--c:#ffc54d"><div class="k">Understanding</div><div class="v">${und ? und.toFixed(1) + ' ★' : '—'}</div><div class="s">${ss.length} sessions</div></div><div class="kpi" style="--c:#4ff0d2"><div class="k">MCQs</div><div class="v">${mcqOn(null, s.id)}</div><div class="s">${mcqOn(today(), s.id)} today</div></div><div class="kpi" style="--c:#ff3b5c"><div class="k">YouTube</div><div class="v">${dur(vidFrom('0000', s.id))}</div><div class="s">${dur(vidFrom(today(), s.id, today()))} today</div></div></div>
     <div class="acts" style="margin:-2px 0 12px"><button class="btn pri" data-act="tstartsub" data-id="${s.id}">▶ Start timer</button><button class="btn" data-act="logsub" data-id="${s.id}">＋ Log session</button></div>
     <section class="card"><div class="ch"><h3>Topics · syllabus</h3><button class="lnk" data-act="topicadd" data-id="${s.id}">＋ Add</button></div>
       ${s.topics.length ? s.topics.map(t => { const l = lastBy[t.n.toLowerCase()]; return `<div class="topic${t.done ? ' done' : ''}"><button class="ck" data-act="ttog" data-s="${s.id}" data-id="${t.id}">${t.done ? '✓' : ''}</button><span style="min-width:0"><b>${esc(t.n)}</b><div class="small faint">${l ? 'last studied ' + ago(l) : 'not studied yet'}</div></span><button class="tx" data-act="tdel" data-s="${s.id}" data-id="${t.id}">✕</button></div>`; }).join('') : '<div class="small muted">Add the topics or modules of this paper to track the syllabus.</div>'}</section>
@@ -667,6 +696,13 @@ function renderStats(){
   // feelings
   const fRows = S.feels.map(f => { const it = ss.filter(s => (s.feels || []).includes(f.id)); return {f, n:it.length, u:avg(it.filter(s => s.und).map(s => s.und))}; }).filter(r => r.n).sort((a, b) => b.n - a.n);
   h += `<section class="card"><div class="ch"><h3>Feelings</h3><span>how often · understanding</span></div><div class="fgrid">${fRows.map(r => `<div class="fc" style="--c:${r.f.c}"><span>${r.f.e}</span><b>${esc(r.f.n)}</b><small>${r.n}× · ${r.u ? r.u.toFixed(1) + '★' : '—'}</small></div>`).join('')}</div></section>`;
+  // MCQs & YouTube
+  const mT = mcqFrom(from), vT = vidFrom(from), ks2 = Array.from({length:14}, (_, i) => addK(today(), i - 13)), mqx = Math.max(10, ...ks2.map(d => mcqOn(d)));
+  const pby = S.subjects.map(s => ({s, m:mcqFrom(from, s.id), v:vidFrom(from, s.id)})).filter(x => x.m || x.v), mxm = Math.max(1, ...pby.map(x => x.m)), mxv = Math.max(1, ...pby.map(x => x.v));
+  h += `<section class="card chart"><div class="ch"><h3>📝 MCQs & ▶️ YouTube</h3><span>${mT} MCQs · ${dur(vT)} video</span></div>
+    <svg viewBox="0 0 340 86">${ks2.map((d, i) => { const v = mcqOn(d), bh = v ? Math.max(3, v / mqx * 60) : 2; return `<rect class="gb" style="animation-delay:${i * 25}ms" x="${(i * 24.3 + 3).toFixed(1)}" y="${66 - bh}" width="18" height="${bh}" rx="4" fill="${v ? '#4ff0d2' : 'var(--s3)'}"/>${v ? `<text x="${(i * 24.3 + 12).toFixed(1)}" y="${62 - bh}" text-anchor="middle" font-size="8" fill="var(--muted)">${v}</text>` : ''}<text x="${(i * 24.3 + 12).toFixed(1)}" y="80" text-anchor="middle" font-size="8.5" fill="${d === today() ? 'var(--cyan)' : 'var(--faint)'}">${pk(d).getDate()}</text>`; }).join('')}</svg>
+    <div class="small muted" style="margin:2px 0 8px">MCQs per day · last 14 days</div>
+    ${pby.map((x, i) => `<div class="pqr"><span>${x.s.e} ${esc(x.s.n)}</span><span class="tr2"><b style="width:${(x.m / mxm * 100).toFixed(1)}%;background:#4ff0d2"></b><b style="width:${(x.v / mxv * 100).toFixed(1)}%;background:#ff3b5c"></b></span><span class="v">${x.m}<small> MCQ</small><br>${dur(x.v)}<small> ▶️</small></span></div>`).join('') || '<div class="small muted">Log MCQs or YouTube videos from the Today page.</div>'}</section>`;
   // best hours
   const hrs = Array(24).fill(0), hu = Array.from({length:24}, () => []); ss.forEach(s => { const hh = new Date(s.start).getHours(); hrs[hh] += s.mins; if (s.und) hu[hh].push(s.und); });
   const mh = Math.max(1, ...hrs), bestH = hrs.indexOf(Math.max(...hrs));
@@ -809,14 +845,14 @@ function keepScroll(fn, to){ const s = document.querySelector('.sheet'), y = to 
 
 /* ---------- model 4 · log / edit a session ---------- */
 let LF = null;
-function newLog(o = {}){ const end = o.end || Date.now(), mins = o.mins || 45; return {id:null, sub:o.sub || (S.sessions.length ? S.sessions[S.sessions.length - 1].sub : S.subjects[0]?.id), topic:o.topic || '', mins, kind:o.kind || 'study', energy:o.energy || [], feels:o.feels || [], und:o.und || 0, remark:o.remark || '', score:o.score ?? null, start:end - mins * MIN, planId:o.planId || null, markDone:false, fromTimer:!!o.fromTimer}; }
+function newLog(o = {}){ const end = o.end || Date.now(), mins = o.mins || 45; return {id:null, sub:o.sub || (S.sessions.length ? S.sessions[S.sessions.length - 1].sub : S.subjects[0]?.id), topic:o.topic || '', mins, kind:o.kind || 'study', energy:o.energy || [], feels:o.feels || [], und:o.und || 0, remark:o.remark || '', score:o.score ?? null, mcq:o.mcq || null, start:end - mins * MIN, planId:o.planId || null, markDone:false, fromTimer:!!o.fromTimer}; }
 function sheetLog(){
   const F = LF, s = sub(F.sub), tops = s.topics || [], recentT = [...new Set(S.sessions.filter(x => x.sub === F.sub && x.topic).sort((a, b) => b.start - a.start).map(x => x.topic))].slice(0, 6);
   const sug = [...new Set(tops.filter(t => !t.done).map(t => t.n).concat(recentT))].slice(0, 8);
   const st = new Date(F.start);
   sheet(`<h3>${F.id ? '✏️ Edit session' : F.fromTimer ? '⏹ Session done · add details' : '📚 Log a study session'}</h3>
     <div class="fl">Subject</div><div class="chips">${S.subjects.map(x => `<button class="ch2${F.sub === x.id ? ' on' : ''}" style="--c:${x.c}" data-act="lsub" data-v="${x.id}">${x.e} ${esc(x.n)}</button>`).join('')}</div>
-    <div class="fl">Topic</div><input id="lTopic" value="${esc(F.topic)}" placeholder="e.g. Risk Management · Basel III" autocomplete="off">
+    <div class="fl">${F.kind === 'video' ? 'Topic / video' : 'Topic'}</div><input id="lTopic" value="${esc(F.topic)}" placeholder="${F.kind === 'video' ? 'Video title or channel, e.g. Basel III explained' : 'e.g. Risk Management · Basel III'}" autocomplete="off">
     ${sug.length ? `<div class="chips" style="margin-top:7px">${sug.map(t => `<button class="chip sm" data-act="ltop" data-v="${esc(t)}">${esc(t)}</button>`).join('')}</div>` : ''}
     ${tops.some(t => !t.done && t.n.toLowerCase() === (F.topic || '').toLowerCase()) || F.markDone ? `<label class="mk2"><input type="checkbox" id="lDone" ${F.markDone ? 'checked' : ''}> Mark this topic as completed in the syllabus</label>` : ''}
     <div class="fl">Time ${F.fromTimer ? '<span>· from your timer</span>' : '<span>· how long you studied</span>'}</div>
@@ -824,6 +860,7 @@ function sheetLog(){
     <div class="grid2"><div><div class="fl">Started at</div><input type="datetime-local" id="lStart" value="${dk(st)}T${pad(st.getHours())}:${pad(st.getMinutes())}"></div>
       <div><div class="fl">Type</div><select id="lKind">${KINDS.map(([k, l]) => `<option value="${k}" ${F.kind === k ? 'selected' : ''}>${l}</option>`).join('')}</select></div></div>
     ${F.kind === 'mock' ? `<div class="fl">Mock score</div><div class="row" style="gap:8px"><input type="number" id="lScore" min="0" max="100" value="${F.score ?? ''}" placeholder="e.g. 68" style="width:110px"><span class="muted">%</span></div>` : ''}
+    <div class="fl">MCQs done <span>· optional, counted for this subject today</span></div><div class="mq">${[10, 25, 50, 100].map(n => `<button class="${F.mcq === n ? 'on' : ''}" data-act="lmcq" data-v="${n}">${n}</button>`).join('')}<input type="number" id="lMcq" min="0" max="2000" value="${F.mcq || ''}" placeholder="0" aria-label="MCQs"></div>
     <div class="fl">Energy <span>· pick one or more (it can change mid-session)</span></div>
     <div class="en">${ENERGY.map(([id, n, e, c]) => `<button class="${F.energy.includes(id) ? 'on' : ''}" style="--c:${c}" data-act="len" data-v="${id}"><b>${e}</b><small>${n}</small></button>`).join('')}</div>
     <div class="fl">Feelings <span>· pick all that fit</span></div>
@@ -833,7 +870,7 @@ function sheetLog(){
     <div class="acts">${F.id ? '<button class="btn danger" data-act="ldel">Delete</button>' : F.fromTimer ? '<button class="btn danger" data-act="ldiscard">Discard</button>' : '<button class="btn" data-act="close">Cancel</button>'}<button class="btn pri" data-act="lsave">${F.id ? 'Save changes' : 'Save session'}</button></div>`);
 }
 function keepLF(){ if (!$('lTopic')) return; LF.topic = $('lTopic').value; LF.remark = $('lRem').value; LF.kind = $('lKind').value; const m = +$('lMins').value; if (m > 0) LF.mins = Math.min(600, m);
-  if ($('lStart').value) LF.start = new Date($('lStart').value).getTime(); if ($('lScore')) LF.score = $('lScore').value === '' ? null : Math.max(0, Math.min(100, +$('lScore').value)); if ($('lDone')) LF.markDone = $('lDone').checked; }
+  if ($('lStart').value) LF.start = new Date($('lStart').value).getTime(); if ($('lScore')) LF.score = $('lScore').value === '' ? null : Math.max(0, Math.min(100, +$('lScore').value)); if ($('lDone')) LF.markDone = $('lDone').checked; if ($('lMcq')) LF.mcq = Math.max(0, Math.min(2000, +$('lMcq').value || 0)) || null; }
 
 /* ---------- start timer ---------- */
 let TF = null;
@@ -886,9 +923,10 @@ function sheetStrat(){ const F = GF;
     <div class="fl">Note</div><textarea id="gT" placeholder="e.g. Two full mock tests every weekend in December">${esc(F.text)}</textarea>
     <div class="acts">${F.id ? '<button class="btn danger" data-act="gdel">Delete</button>' : '<button class="btn" data-act="close">Cancel</button>'}<button class="btn pri" data-act="gsave">Save</button></div>`); }
 function sheetBtns(){
-  sheet(`<h3>Log buttons</h3><p class="small muted" style="margin-top:-6px">The big tiles on the Tank page. Tap an emoji to change it.</p>
+  sheet(`<h3>Log buttons</h3><p class="small muted" style="margin-top:-6px">The big tiles on the Tank page. Tap the emoji to change it, a colour dot (or the 🎨 square) to recolour the tile.</p>
+    <div class="lkprev" style="position:static;margin-bottom:6px"><div class="small muted" style="margin-bottom:6px">PREVIEW</div><div class="lg lgm">${S.btns.map(b => `<div class="lt" style="--c:${b.c};animation:none"><div class="ltm" style="pointer-events:none"><div class="ic">${b.e}</div><div class="n">${esc(b.n)}</div><div class="v">${b.m}<small> min</small></div></div></div>`).join('')}</div></div>
     ${S.btns.map(b => `<div class="brw" data-emhost><button class="pemo sm" style="--c:${b.c}" data-act="emopen" data-t="be_${b.id}">${b.e}</button><input type="hidden" id="be_${b.id}" value="${esc(b.e)}"><input value="${esc(b.n)}" data-bn="${b.id}" maxlength="14"><input type="number" value="${b.m}" data-bm="${b.id}" min="5" max="300" title="minutes"><input type="color" value="${b.c}" data-bc="${b.id}"><button class="tx" data-act="btndel" data-id="${b.id}">✕</button></div>
-      <div class="brk">${KINDS.map(([k, l]) => `<button class="chip sm${b.k === k ? ' on' : ''}" data-act="btnkind" data-id="${b.id}" data-v="${k}">${l}</button>`).join('')}</div>`).join('')}
+      <div class="brk"><div class="sws sm">${PAL.concat(['#ff3b5c','#4ff0d2','#38c8ff','#ff9a3c']).filter((c, i, a) => a.indexOf(c) === i).map(c => `<button class="${b.c === c ? 'on' : ''}" style="--c:${c}" data-act="btncol" data-id="${b.id}" data-v="${c}" aria-label="Colour ${c}"></button>`).join('')}</div>${KINDS.map(([k, l]) => `<button class="chip sm${b.k === k ? ' on' : ''}" data-act="btnkind" data-id="${b.id}" data-v="${k}">${l}</button>`).join('')}</div>`).join('')}
     <div class="acts"><button class="btn" data-act="btnadd">＋ Add button</button><button class="btn pri" data-act="close">Done</button></div>`);
 }
 let FF = null;
@@ -949,9 +987,10 @@ function parseQuick(txt){
   const EW = {drained:'drained', exhausted:'drained', low:'low', tired:'low', okay:'okay', ok:'okay', fine:'okay', high:'high', fresh:'high', energetic:'high', peak:'peak', charged:'peak'}, energy = [], feels = [];
   Object.entries(EW).forEach(([w, id]) => { const r = new RegExp('\\b' + w + '\\b'); if (r.test(t)) { if (!energy.includes(id)) energy.push(id); t = t.replace(r, ' '); } });
   S.feels.forEach(f => { const r = new RegExp('\\b' + f.n.toLowerCase() + '\\b'); if (r.test(t)) { feels.push(f.id); t = t.replace(r, ' '); } });
-  let kind = 'study'; if (/\b(revision|revise|revised)\b/.test(t)) { kind = 'revision'; t = t.replace(/\b(revision|revise|revised)\b/, ' '); } else if (/\bmock\b/.test(t)) { kind = 'mock'; t = t.replace(/\bmock( test)?\b/, ' '); }
+  let mcq = null; const mq = t.match(/(\d+)\s*(mcqs?|questions?|qs)\b/); if (mq) { mcq = +mq[1]; t = t.replace(mq[0], ' '); }
+  let kind = 'study'; if (/\b(revision|revise|revised)\b/.test(t)) { kind = 'revision'; t = t.replace(/\b(revision|revise|revised)\b/, ' '); } else if (/\b(youtube|yt|video|videos|lecture)\b/.test(t)) { kind = 'video'; t = t.replace(/\b(youtube|yt|video|videos|lecture)\b/g, ' '); } else if (/\bmock\b/.test(t)) { kind = 'mock'; t = t.replace(/\bmock( test)?\b/, ' '); }
   const topic = t.replace(/\b(but|and|felt|feeling|very|bit|a|so)\b/g, ' ').replace(/[,.;]+/g, ' ').replace(/\s+/g, ' ').trim();
-  return {mins, sub:subId, energy, feels, kind, topic:topic ? topic[0].toUpperCase() + topic.slice(1) : ''};
+  return {mins, mcq, sub:subId, energy, feels, kind, topic:topic ? topic[0].toUpperCase() + topic.slice(1) : ''};
 }
 let REC = null;
 function quickMic(){
@@ -962,7 +1001,32 @@ function quickMic(){
   REC.onend = () => { REC = null; const b = $('qMic'); if (b) b.classList.remove('rec'); snd('tap'); };
   try { REC.start(); const b = $('qMic'); if (b) b.classList.add('rec'); snd('start'); } catch(e) { REC = null; }
 }
+
+/* ---------- MCQs ---------- */
+let MF = null;
+function sheetMcq(){
+  const F = MF, d = new Date(F.t);
+  sheet(`<h3>${F.id ? '✏️ Edit MCQs' : '📝 Log MCQs'}</h3>
+    <div class="fl">Subject</div><div class="chips">${S.subjects.map(x => `<button class="ch2${F.sub === x.id ? ' on' : ''}" style="--c:${x.c}" data-act="msub" data-v="${x.id}">${x.e} ${esc(x.n)}</button>`).join('')}</div>
+    <div class="fl">How many MCQs</div><div class="mq">${[10, 25, 50, 100].map(n => `<button class="${F.n === n ? 'on' : ''}" data-act="mnum" data-v="${n}">${n}</button>`).join('')}<input type="number" id="mN" min="1" max="2000" value="${F.n || ''}" placeholder="0"></div>
+    <div class="grid2"><div><div class="fl">Correct <span>· optional</span></div><input type="number" id="mC" min="0" max="2000" value="${F.ok ?? ''}" placeholder="e.g. 38"></div><div><div class="fl">When</div><input type="datetime-local" id="mT" value="${dk(d)}T${pad(d.getHours())}:${pad(d.getMinutes())}"></div></div>
+    <div class="fl">Topic <span>· optional</span></div><input id="mTp" value="${esc(F.topic || '')}" placeholder="e.g. SARFAESI Act" autocomplete="off">
+    <div class="acts">${F.id ? '<button class="btn danger" data-act="mdel">Delete</button>' : '<button class="btn" data-act="close">Cancel</button>'}<button class="btn pri" data-act="msave">${F.id ? 'Save' : 'Add MCQs'}</button></div>`);
+}
+function keepMF(){ if (!$('mN')) return; MF.n = Math.max(0, Math.min(2000, +$('mN').value || 0)); MF.ok = $('mC').value === '' ? null : Math.max(0, +$('mC').value); if ($('mT').value) MF.t = new Date($('mT').value).getTime(); MF.topic = $('mTp').value; }
+/* ---------- practice history (MCQs + YouTube) ---------- */
+function sheetPractice(){
+  const items = S.mcqs.map(x => ({t:x.t, k:'m', x})).concat(S.sessions.filter(s => s.mcq && s.kind !== 'video').map(s => ({t:s.start, k:'sm', x:s})), S.sessions.filter(s => s.kind === 'video').map(s => ({t:s.start, k:'v', x:s}))).sort((a, b) => b.t - a.t).slice(0, 80);
+  let last = '';
+  sheet(`<h3>📝 MCQs & ▶️ YouTube history</h3>
+    <div class="acts" style="margin-top:0"><button class="btn" data-act="mcqadd">＋ MCQs</button><button class="btn" data-act="vidadd">＋ Video</button></div>
+    ${items.map(it => { const k = dayOf(it.t), hd = k !== last ? `<div class="dayh">${k === today() ? 'Today' : longDay(k)} · ${mcqOn(k)} MCQs · ${dur(vidFrom(k, null, k))} video</div>` : ''; last = k; const su = sub(it.x.sub);
+      return hd + (it.k === 'm' ? `<button class="ses" style="--c:${su.c}" data-act="mcqedit" data-id="${it.x.id}"><span class="e">📝</span><span style="min-width:0"><b>${su.e} ${esc(su.n)}${it.x.topic ? ' · ' + esc(it.x.topic) : ''}</b><div class="small faint">${hm(it.t)}${it.x.ok != null ? ` · ${it.x.ok} correct (${Math.round(it.x.ok / it.x.n * 100)}%)` : ''}</div></span><span class="v">${it.x.n}<small>MCQs</small></span></button>`
+        : `<button class="ses" style="--c:${su.c}" data-act="editsess" data-id="${it.x.id}"><span class="e">${it.k === 'v' ? '▶️' : '📝'}</span><span style="min-width:0"><b>${su.e} ${esc(su.n)}${it.x.topic ? ' · ' + esc(it.x.topic) : ''}</b><div class="small faint">${hm(it.t)} · ${it.k === 'v' ? 'YouTube' : 'in a study session'}${it.x.mcq ? ' · ' + it.x.mcq + ' MCQs' : ''}</div></span><span class="v">${it.k === 'v' ? dur(it.x.mins) : it.x.mcq}<small>${it.k === 'v' ? 'video' : 'MCQs'}</small></span></button>`); }).join('') || '<div class="empty"><span class="e">📝</span>No MCQs or videos logged yet.</div>'}
+    <button class="btn" style="margin-top:12px" data-act="close">Close</button>`);
+}
 /* ===================== actions ===================== */
+const lastSub = () => (S.sessions.length ? S.sessions.slice().sort((a, b) => b.start - a.start)[0].sub : S.subjects[0]?.id);
 const tog = (arr, v) => arr.includes(v) ? arr.filter(x => x !== v) : arr.concat(v);
 const A = {
   tab: el => { if (UI.tab === el.dataset.t && !UI.sub) return; UI.tab = el.dataset.t; UI.sub = null; snd('tab'); render(); scrollTo(0, 0); },
@@ -979,15 +1043,16 @@ const A = {
   btnlog: el => { const b = S.btns.find(x => x.id === el.dataset.id); if (!b) return; LF = newLog({mins:b.m, kind:b.k}); snd('tap'); sheetLog(); },
   btntimer: el => { const b = S.btns.find(x => x.id === el.dataset.id); if (!b) return; if (S.timer) return toast('A timer is already running'); TF = {sub:S.sessions.length ? S.sessions[S.sessions.length - 1].sub : S.subjects[0].id, topic:'', target:b.m}; TF.kind = b.k; TF.btn = b.id; sheetStart(); },
   logsub: el => { LF = newLog({sub:el.dataset.id}); sheetLog(); },
-  editsess: el => { const s = S.sessions.find(x => x.id === el.dataset.id); if (!s) return; LF = {...s, energy:[...(s.energy || [])], feels:[...(s.feels || [])], markDone:false}; sheetLog(); },
+  editsess: el => { const s = S.sessions.find(x => x.id === el.dataset.id); if (!s) return; LF = {...s, mcq:s.mcq || null, energy:[...(s.energy || [])], feels:[...(s.feels || [])], markDone:false}; sheetLog(); },
   lsub: el => { keepLF(); LF.sub = el.dataset.v; snd('tap'); keepScroll(sheetLog); },
   ltop: el => { keepLF(); LF.topic = el.dataset.v; snd('tap'); keepScroll(sheetLog); },
   lmin: el => { keepLF(); LF.mins = +el.dataset.v; if (!LF.id && !LF.fromTimer) LF.start = Date.now() - LF.mins * MIN; snd('tap'); keepScroll(sheetLog); },
   len: el => { keepLF(); LF.energy = tog(LF.energy, el.dataset.v); snd('tap'); vib(8); keepScroll(sheetLog); },
   lfeel: el => { keepLF(); LF.feels = tog(LF.feels, el.dataset.v); snd('tap'); vib(8); keepScroll(sheetLog); },
+  lmcq: el => { keepLF(); LF.mcq = LF.mcq === +el.dataset.v ? null : +el.dataset.v; snd('tap'); keepScroll(sheetLog); },
   lund: el => { keepLF(); const n = +el.dataset.v; LF.und = LF.und === n ? 0 : n; snd('tap'); keepScroll(sheetLog); },
   lsave: () => { keepLF(); if (!LF.sub) { snd('err'); return toast('Choose a subject'); }
-    const rec = {id:LF.id || uid(), sub:LF.sub, topic:(LF.topic || '').trim(), mins:LF.mins, kind:LF.kind, energy:LF.energy, feels:LF.feels, und:LF.und, remark:(LF.remark || '').trim(), score:LF.kind === 'mock' ? LF.score : null, start:LF.start};
+    const rec = {id:LF.id || uid(), mcq:LF.mcq || null, sub:LF.sub, topic:(LF.topic || '').trim(), mins:LF.mins, kind:LF.kind, energy:LF.energy, feels:LF.feels, und:LF.und, remark:(LF.remark || '').trim(), score:LF.kind === 'mock' ? LF.score : null, start:LF.start};
     const before = minsOn(today());
     if (LF.id) S.sessions = S.sessions.map(s => s.id === LF.id ? rec : s); else S.sessions.push(rec);
     if (LF.markDone && rec.topic) { const t = sub(rec.sub).topics.find(x => x.n.toLowerCase() === rec.topic.toLowerCase()); if (t) t.done = true; }
@@ -1001,8 +1066,26 @@ const A = {
   feeladd: () => { keepLF(); FF = {e:'🙂', n:''}; sheetFeel(); },
   feelback: () => sheetLog(),
   feelsave: () => { const n = ($('ffN').value || '').trim(); if (!n) return toast('Name the feeling'); const f = {id:'f' + uid(), n, e:$('ffE').value || FF.e, c:PAL[S.feels.length % PAL.length]}; S.feels.push(f); LF.feels.push(f.id); save(); snd('save'); sheetLog(); },
-  qadd: () => { const v = ($('qaIn').value || '').trim(); if (!v) { const i = $('qaIn'); if (i) i.focus(); return; } const q = parseQuick(v); LF = newLog({sub:q.sub || undefined, topic:q.topic, mins:q.mins || 45, energy:q.energy, feels:q.feels, kind:q.kind}); snd('tap'); sheetLog(); toast(`Read as: ${q.mins ? dur(q.mins) : '45m'}${q.sub ? ' · ' + sub(q.sub).n : ''}${q.energy.length + q.feels.length ? ' · ' + (q.energy.length + q.feels.length) + ' feelings/energy' : ''} — check and save`); },
+  qadd: () => { const v = ($('qaIn').value || '').trim(); if (!v) { const i = $('qaIn'); if (i) i.focus(); return; } const q = parseQuick(v);
+    if (q.mcq && !q.mins && q.kind !== 'video') { MF = {id:null, sub:q.sub || lastSub(), n:q.mcq, ok:null, t:Date.now(), topic:q.topic}; snd('tap'); sheetMcq(); return toast(`Read as: ${q.mcq} MCQs${q.sub ? ' · ' + sub(q.sub).n : ''} — check and save`); } LF = newLog({sub:q.sub || undefined, topic:q.topic, mcq:q.mcq, mins:q.mins || (q.kind === 'video' ? 20 : 45), energy:q.energy, feels:q.feels, kind:q.kind}); snd('tap'); sheetLog(); toast(`Read as: ${q.mins ? dur(q.mins) : '45m'}${q.sub ? ' · ' + sub(q.sub).n : ''}${q.energy.length + q.feels.length ? ' · ' + (q.energy.length + q.feels.length) + ' feelings/energy' : ''} — check and save`); },
   qmic: () => quickMic(),
+  // subject tiles: edit / delete
+  tedit: () => { UI.tedit = !UI.tedit; snd('tap'); render(false); },
+  subx: (el, e) => { e.stopPropagation(); const s = sub(el.dataset.id), i = S.subjects.indexOf(s); if (i < 0) return; const n = S.sessions.filter(x => x.sub === s.id).length;
+    if (!confirm(`Delete the ${s.n} tile?${n ? `\n\nIts ${n} sessions stay in your history and stats as "General".` : ''}`)) return;
+    S.subjects.splice(i, 1); save(); snd('del'); vib(30); render(false); toast(`${s.e} ${esc(s.n)} deleted`, {label:'Undo', fn:() => { S.subjects.splice(Math.min(i, S.subjects.length), 0, s); save(); render(false); }}); },
+  // MCQs & YouTube
+  mcqadd: () => { MF = {id:null, sub:UI.sub || lastSub(), n:25, ok:null, t:Date.now(), topic:''}; snd('tap'); sheetMcq(); },
+  mcqedit: el => { const x = S.mcqs.find(y => y.id === el.dataset.id); if (!x) return; MF = {...x}; sheetMcq(); },
+  msub: el => { keepMF(); MF.sub = el.dataset.v; snd('tap'); sheetMcq(); },
+  mnum: el => { keepMF(); MF.n = +el.dataset.v; snd('tap'); sheetMcq(); },
+  msave: () => { keepMF(); if (!MF.sub) return toast('Choose a subject'); if (!MF.n) { snd('err'); return toast('How many MCQs?'); } if (MF.ok != null && MF.ok > MF.n) MF.ok = MF.n;
+    const rec = {id:MF.id || 'm' + uid(), sub:MF.sub, n:MF.n, ok:MF.ok, t:MF.t, topic:(MF.topic || '').trim()}; if (MF.id) S.mcqs = S.mcqs.map(x => x.id === MF.id ? rec : x); else S.mcqs.push(rec);
+    save(); snd('save'); vib(25); closeSheet(); toast(MF.id ? 'MCQs updated' : `📝 ${rec.n} ${esc(sub(rec.sub).n)} MCQs · ${mcqOn(today())} today`); },
+  mdel: el => arm(el, () => { const x = S.mcqs.find(y => y.id === MF.id); S.mcqs = S.mcqs.filter(y => y.id !== MF.id); save(); snd('del'); closeSheet(); toast('MCQs deleted', {label:'Undo', fn:() => { S.mcqs.push(x); save(); render(false); }}); }),
+  vidadd: () => { LF = newLog({sub:UI.sub || lastSub(), mins:20, kind:'video'}); snd('tap'); sheetLog(); },
+  prlist: () => { snd('tap'); sheetPractice(); },
+  btncol: el => { const b = S.btns.find(x => x.id === el.dataset.id); if (b) { b.c = el.dataset.v; save(); } snd('tap'); keepScroll(sheetBtns); },
   // plan
   padd: () => { PF = {id:null, sub:S.subjects[0]?.id, topic:'', date:today(), time:'', mins:60, done:false}; sheetPlan(); },
   pedit: el => { const p = S.plan.find(x => x.id === el.dataset.id); if (!p) return; PF = {...p}; sheetPlan(); },
@@ -1060,7 +1143,7 @@ const A = {
   export: () => download(`exampulse-backup-${today()}.json`, JSON.stringify({...S, app:'ExamPulse', exported:new Date().toISOString()}, null, 1), 'application/json'),
   import: () => $('fileIn').click(),
   csv: () => { const q = v => { const s = String(v ?? ''); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
-    const rows = [['Date','Start','Minutes','Subject','Topic','Type','Energy','Feelings','Understanding','Mock score','Remarks']].concat(S.sessions.slice().sort((a, b) => a.start - b.start).map(s => [dayOf(s.start), hm(s.start), s.mins, sub(s.sub).n, s.topic, s.kind, (s.energy || []).map(e => en(e)[1]).join(' + '), (s.feels || []).map(f => feel(f).n).join(' + '), s.und || '', s.score ?? '', s.remark]));
+    const rows = [['Date','Start','Minutes','Subject','Topic','Type','MCQs','Energy','Feelings','Understanding','Mock score','Remarks']]/*csv*/.concat(S.sessions.slice().sort((a, b) => a.start - b.start).map(s => [dayOf(s.start), hm(s.start), s.mins, sub(s.sub).n, s.topic, s.kind, s.mcq || '', (s.energy || []).map(e => en(e)[1]).join(' + '), (s.feels || []).map(f => feel(f).n).join(' + '), s.und || '', s.score ?? '', s.remark]));
     download(`exampulse-${today()}.csv`, '﻿' + rows.map(r => r.map(q).join(',')).join('\r\n'), 'text/csv'); },
   wipe: el => arm(el, () => { try { localStorage.removeItem(KEY); } catch(e) {} S = fresh(); UI.sub = null; applyLook(); closeSheet(); toast('All ExamPulse data deleted'); }),
   themenext: () => { const L2 = look(), i = THK.indexOf(L2.theme); L2.theme = THK[(i + 1) % THK.length]; L2.card = ''; save(); applyLook(); snd('theme'); render(false); toast(`🎨 ${THEMES[L2.theme].n}`); },
@@ -1092,7 +1175,7 @@ document.addEventListener('change', e => { const el = e.target, d = el.dataset |
   if (el.id === 'sfC') { keepSF(); SF.c = el.value; keepScroll(sheetSub); return; }
   if (d.bn) { const b = S.btns.find(x => x.id === d.bn); if (b) { b.n = el.value.trim() || b.n; save(); } return; }
   if (d.bm) { const b = S.btns.find(x => x.id === d.bm); if (b) { b.m = Math.max(5, Math.min(300, +el.value || b.m)); save(); } return; }
-  if (d.bc) { const b = S.btns.find(x => x.id === d.bc); if (b) { b.c = el.value; save(); } return; }
+  if (d.bc) { const b = S.btns.find(x => x.id === d.bc); if (b) { b.c = el.value; save(); } keepScroll(sheetBtns); return; }
 });
 document.addEventListener('input', e => { const el = e.target; if (!el.dataset || !el.dataset.lk) return;
   const L2 = look(), k = el.dataset.lk, v = el.value, lab = el.nextElementSibling && el.nextElementSibling.tagName === 'SMALL' ? el.nextElementSibling : null;
@@ -1102,7 +1185,7 @@ document.addEventListener('input', e => { const el = e.target; if (!el.dataset |
 $('fileIn').onchange = e => { const f = e.target.files[0]; e.target.value = ''; if (!f) return; const r = new FileReader();
   r.onload = () => { try { const d = JSON.parse(r.result); if (!Array.isArray(d.sessions)) throw 0;
       const hs = new Set(S.sessions.map(x => x.id)); let n = 0; d.sessions.forEach(x => { if (!hs.has(x.id)) { S.sessions.push(x); n++; } });
-      ['subjects', 'exams', 'feels', 'btns', 'strategy', 'plan', 'wish'].forEach(k => { if (Array.isArray(d[k])) { const h = new Set(S[k].map(x => x.id)); d[k].forEach(x => { if (!h.has(x.id)) S[k].push(x); }); } });
+      ['subjects', 'exams', 'feels', 'btns', 'strategy', 'plan', 'wish', 'mcqs'].forEach(k => { if (Array.isArray(d[k])) { const h = new Set(S[k].map(x => x.id)); d[k].forEach(x => { if (!h.has(x.id)) S[k].push(x); }); } });
       if (d.look && !S.look) S.look = d.look; if (d.goal) S.goal = {...S.goal, ...d.goal};
       save(); applyLook(); closeSheet(); snd('save'); toast(`Imported ${n} sessions`); } catch(err) { snd('err'); toast('That file is not an ExamPulse backup'); } };
   r.readAsText(f); };
@@ -1117,6 +1200,8 @@ function seedDemo(){
       const e1 = es[1 + Math.floor(rnd() * 4)], kind = rnd() < .08 ? 'mock' : rnd() < .25 ? 'revision' : 'study';
       S.sessions.push({id:'s' + d + '_' + i, sub:su, topic:T[su][Math.floor(rnd() * T[su].length)], mins:kind === 'mock' ? 120 : mins, kind, energy:rnd() < .3 ? [e1, es[Math.floor(rnd() * 5)]] : [e1], feels:[fs[Math.floor(rnd() * 4)], rnd() < .5 ? fs[4 + Math.floor(rnd() * 5)] : fs[0]].filter((x, j, a) => a.indexOf(x) === j), und:2 + Math.floor(rnd() * 4), remark:'', score:kind === 'mock' ? 55 + Math.floor(rnd() * 25) : null, start:t});
       t += (mins + 20 + rnd() * 60) * MIN; } }
+  for (let d = 9; d >= 0; d--) { const k = addK(today(), -d); for (let j = 0; j < 2; j++) { if (rnd() < .3) continue; const su = ids[Math.floor(rnd() * ids.length)], n = [10, 20, 25, 30, 50][Math.floor(rnd() * 5)]; const t = pk(k).getTime() + (7 + j * 6 + rnd() * 3) * 3600000; if (t > Date.now()) continue; S.mcqs.push({id:'m' + d + j, sub:su, n, ok:Math.round(n * (.55 + rnd() * .4)), t, topic:''}); }
+    if (rnd() < .5) { const t = pk(k).getTime() + 21.5 * 3600000; if (t < Date.now()) { const su = ids[Math.floor(rnd() * ids.length)]; S.sessions.push({id:'v' + d, sub:su, topic:T[su][0] + ' explained', mins:[15, 20, 30, 40][Math.floor(rnd() * 4)], kind:'video', energy:['okay'], feels:['calm'], und:3, remark:'', score:null, start:t}); } } }
   S.plan = [{id:'p1', sub:'bfm', topic:'Risk Management', date:today(), time:'19:00', mins:60, done:false},{id:'p2', sub:'brbl', topic:'SARFAESI Act', date:today(), time:'21:00', mins:45, done:false},{id:'p3', sub:'abfm', topic:'Capital budgeting', date:addK(today(), 1), time:'06:00', mins:60, done:false},{id:'p4', sub:'abm', topic:'Statistics', date:addK(today(), -1), time:'', mins:45, done:false}];
   S.settings.sound = false;
 }
